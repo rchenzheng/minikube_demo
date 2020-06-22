@@ -81,13 +81,15 @@ VAULT_HELM_VERSION=0.5.0
 helm repo add hashicorp https://helm.releases.hashicorp.com
 
 c1_kctx
-helm install vault hashicorp/vault --version $VAULT_HELM_VERSION \
+helm tiller stop; helm tiller start-ci 
+helm install --name=vault hashicorp/vault --version $VAULT_HELM_VERSION \
     --set injector.externalVaultAddr=$VAULT_ADDR \
     --set fullnameOverride=vault \
     --set injector.logLevel=debug \
 
 c2_kctx
-helm install vault hashicorp/vault --version $VAULT_HELM_VERSION \
+helm tiller stop; helm tiller start-ci
+helm install --name=vault hashicorp/vault --version $VAULT_HELM_VERSION \
     --set injector.externalVaultAddr=$VAULT_ADDR \
     --set fullnameOverride=vault \
     --set injector.logLevel=debug \
